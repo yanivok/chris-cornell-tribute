@@ -3,6 +3,7 @@ import Video from './Video.js';
 import Gradient from './Gradient.js';
 import Patephone from './Patephone.js';
 import './App.css';
+import './fonts/fonts.css';
 
 class App extends Component {
   constructor(props) {
