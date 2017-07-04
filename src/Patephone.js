@@ -9,7 +9,7 @@ class Pathephone extends Component {
 		
     render() {
         return (
-					<div className="patiphone-container rotate">
+					<div className="patiphone-container">
 					<div className="white-circle">
 							<div className="patiphone-artist-name">
 							Chris Cornell

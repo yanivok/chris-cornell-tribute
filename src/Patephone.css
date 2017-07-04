@@ -9,6 +9,10 @@
 	left: 50%;
 	margin: -25% 0 0 -25%;
 	opacity: 0.9;
+  background-image: url('./images/record.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .patiphone-container:after {
@@ -19,9 +23,9 @@
 
 .white-circle {
   position: absolute;
-  width: 30%;
-  height: 30%;
-  margin: 35%;
+  width: 34%;
+  height: 34%;
+  margin: 33%;
   background-color: white;
   border-radius: 50%;
   text-align: center;
@@ -30,12 +34,12 @@
 .patiphone-artist-name {
 	font-family: 'mandatory18';
   position: absolute;
-  width: 60%;
-  margin: 10% 20%;
+  width: 50%;
+  margin: 10% 25%;
   color: red;
   font-size: 1.7vw;
   text-transform: uppercase;
-	line-height: 36px;
+	line-height: 3.5vh;
 }
 
 .patiphone-artist-years {
@@ -58,20 +62,3 @@
   text-align: center;
 }
 
-.rotate {
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
-  overflow: hidden;
-}
-
-.rotate:hover {
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-}

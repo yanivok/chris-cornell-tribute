@@ -37,36 +37,3 @@ body, html{
   width: 150%;
   height: 150vh;
 }
-
-.gradient {
-  position: fixed;
-  z-index: 3;
-  top: 0px;
-  opacity: 0;
-  left: 0px;
-  width: 100%;
-  height: 100vh;
-  transition: opacity 1.5s;
-}
-
-.show-gradient{
-  opacity: 1;
-}
-
-.gradient1 {
-  pointer-events: none;
-  background: #997BF6;
-  background: linear-gradient(top left, #997BF6, #6F0D7F);
-}
-
-.gradient2{
-  pointer-events: none;
-  background: #EB7F00;
-  background: linear-gradient(top left, #EB7F00, #1595A3);
-}
-
-.gradient3{
-  pointer-events: none;
-  background: #EB7F00;
-  background: linear-gradient(top left, #BD8D46, #B9121B);
-}
