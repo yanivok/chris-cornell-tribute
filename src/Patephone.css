@@ -1,0 +1,73 @@
+.patiphone-container {
+  position: relative;
+  width: 50%;
+  border-radius: 50%;
+  background-color: black;
+  transform: rotate(-30deg);
+  z-index: 1;
+	top: 50%;
+	left: 50%;
+	margin: -25% 0 0 -25%;
+}
+
+.patiphone-container:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.white-circle {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  margin: 35%;
+  background-color: white;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.patiphone-artist-name {
+  position: absolute;
+  width: 60%;
+  margin: 10% 20%;
+  color: red;
+  font-size: 1.7vw;
+  text-transform: uppercase;
+}
+
+.patiphone-artist-years {
+  position: absolute;
+  width: 60%;
+  margin: 10% 20%;
+  color: red;
+  font-size: 1.4vw;
+  top: 55%;
+}
+
+.small-circle {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  margin: 45%;
+  background-color: black;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.rotate {
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+  overflow: hidden;
+}
+
+.rotate:hover {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+}

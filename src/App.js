@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Video from './Video.js';
 import Gradient from './Gradient.js';
+import Patephone from './Patephone.js';
 import './App.css';
 
 class App extends Component {
@@ -21,9 +22,10 @@ class App extends Component {
     return (
       <div className="main-container">
         <Video src="https://www.youtube.com/embed/7QU1nvuxaMA" />
-        <div className="main-title">Chris Cornell</div>
+        <Patephone />
+        {/*<div className="main-title">Chris Cornell</div>
         <div className="years">July 20, 1964 – May 18, 2017</div>
-        <Gradient index={this.state.gradientIndex} show={this.state.shouldShowGradient}/>
+        <Gradient index={this.state.gradientIndex} show={this.state.shouldShowGradient}/>*/}
       </div>
     );
   }
