@@ -14,8 +14,12 @@ class App extends Component {
   render() {
     return (
       <div className="main-container">
-        <Video src="https://www.youtube.com/embed/7QU1nvuxaMA" />
+        <Video/>
         <Patephone />
+        <div className="video-title">
+          <div className="band">audioslave</div>
+          <div className="song">like a stone</div>
+        </div>
       </div>
     );
   }
