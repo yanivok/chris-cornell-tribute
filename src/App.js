@@ -54,8 +54,8 @@ class App extends Component {
                onStartSong={this.onStartSong} />
         <Patephone />
         <div className="video-title">
-          <div className="band">audioslave</div>
-          <div className="song">like a stone</div>
+          <div className="band">{this.state.currentVideo.band}</div>
+          <div className="song">{this.state.currentVideo.title}</div>
         </div>
       </div>
     );

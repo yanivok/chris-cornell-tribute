@@ -1,8 +1,10 @@
 [
-  { "label": "like a stone",
+  { "band": "audioslave",
+    "title": "like a stone",
     "videoId": "7QU1nvuxaMA"
   },
-  { "label": "black hole sun",
+  { "band": "soundgarden",
+    "title": "black hole sun",
     "videoId": "3mbBbFH9fAg"
   }
 ]
