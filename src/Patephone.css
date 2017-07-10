@@ -13,12 +13,17 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  transition: opacity 1s;
 }
 
 .patiphone-container:after {
   content: "";
   display: block;
   padding-bottom: 100%;
+}
+
+.patiphone-container:hover{
+  opacity: 0.9 !important;
 }
 
 .white-circle {

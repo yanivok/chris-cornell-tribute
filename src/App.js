@@ -10,7 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentVideoIndex: 0,
-      currentVideo: null
+      currentVideo: null,
+      isSongPlaying: false
     }
     this.youtubeOptions = {
       height: '100vh',
@@ -35,14 +36,21 @@ class App extends Component {
   }
 
   onStartSong = () => {
-    this.setState({currentVideo: videosArray[this.state.currentVideoIndex]});
+    this.setState({currentVideo: videosArray[this.state.currentVideoIndex]}, ()=>{
+      this.setState({isSongPlaying: true});
+    });
   }
 
   onSongEnd = () => {
-    if (this.state.currentVideoIndex === videosArray.length - 1){ return; }
-    this.setState({currentVideoIndex: this.state.currentVideoIndex + 1}, ()=>{
+    if (this.state.currentVideoIndex === videosArray.length - 1){ 
+      this.setState({ isSongPlaying: false });
+      return;
+    }
+    this.setState({currentVideoIndex: this.state.currentVideoIndex + 1,  isSongPlaying: false},
+     ()=>{
       this.onStartSong();
-    })
+    }
+    );
   }
 
   render() {
@@ -52,7 +60,7 @@ class App extends Component {
                currentVideo={this.state.currentVideo}
                onSongEnd={this.onSongEnd}
                onStartSong={this.onStartSong} />
-        <Patephone />
+        <Patephone isSongPlaying={this.state.isSongPlaying}/>
         <div className="video-title">
           <div className="band">{this.state.currentVideo.band}</div>
           <div className="song">{this.state.currentVideo.title}</div>

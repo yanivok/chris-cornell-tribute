@@ -8,8 +8,11 @@ class Pathephone extends Component {
 	}
 
 	render() {
+		let myStyle = this.props.isSongPlaying ? {
+			opacity: '0.25'
+		} : null;
 		return (
-			<div className="patiphone-container">
+			<div className="patiphone-container" style={myStyle}>
 				<div className="white-circle">
 					<div className="patiphone-artist-name">
 						Chris Cornell
