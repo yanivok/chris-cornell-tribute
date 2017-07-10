@@ -9,17 +9,17 @@ class Pathephone extends Component {
 
 	render() {
 		let myStyle = this.props.isSongPlaying ? {
-			opacity: '0.25'
+			opacity: '0.1'
 		} : null;
 		return (
 			<div className={`patiphone-container ${this.props.isSongPlaying ? 'rotate' : ''}`} style={myStyle}>
 				<div className="white-circle">
 					<div className="patiphone-artist-name">
-						Chris Cornell
-						</div>
+						Best Live
+					</div>
 					<div className="small-circle"></div>
 					<div className="patiphone-artist-years">
-						1964 - 2017
+						 Performances
 					</div>
 				</div>
 			</div>

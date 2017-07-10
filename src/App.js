@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Video from './Video.js';
 import Patephone from './Patephone.js';
 import videosArray from './videos.json';
+import NoiseContainer from './NoiseContainer.js';
 import './App.css';
 import './fonts/fonts.css';
 
@@ -13,22 +14,6 @@ class App extends Component {
       currentVideo: null,
       isSongPlaying: false
     }
-    this.youtubeOptions = {
-      height: '100vh',
-      width: '100vw',
-      playerVars: { 
-        autoplay: 1,
-        wmode: 'transparent',
-        showinfo: 0,
-        controls: 0,
-        cc_load_policy: 0,
-        disablekb: 1,
-        iv_load_policy: 3,
-        modestbranding: 1,
-        playsinline: 0,
-        rel: 0
-      }
-    };
   }
 
   componentWillMount() {
@@ -56,10 +41,10 @@ class App extends Component {
   render() {
     return (
       <div className="main-container">
-        <Video opts={this.youtubeOptions} 
-               currentVideo={this.state.currentVideo}
+        <Video currentVideo={this.state.currentVideo}
                onSongEnd={this.onSongEnd}
                onStartSong={this.onStartSong} />
+        <NoiseContainer showNoise={false} />
         <Patephone isSongPlaying={this.state.isSongPlaying}/>
         <div className="video-title">
           <div className="band">{this.state.currentVideo.band}</div>

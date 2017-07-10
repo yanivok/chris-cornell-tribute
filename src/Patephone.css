@@ -4,7 +4,7 @@
   border-radius: 50%;
   background-color: black;
   transform: rotate(-30deg);
-  z-index: 1;
+  z-index: 3;
 	top: 50%;
 	left: 50%;
 	margin: -25% 0 0 -25%;
@@ -37,24 +37,25 @@
 }
 
 .patiphone-artist-name {
-	font-family: 'mandatory18';
+  font-family: 'mandatory18';
   position: absolute;
-  width: 50%;
-  margin: 10% 25%;
+  width: 90%;
+  height: 20%;
+  margin: 10% 5%;
   color: red;
   font-size: 1.7vw;
   text-transform: uppercase;
-	line-height: 3.5vh;
 }
 
 .patiphone-artist-years {
   position: absolute;
-  width: 60%;
-  margin: 10% 20%;
+  width: 90%;
   color: red;
-  font-size: 1.4vw;
-  top: 55%;
-	font-family: 'mandatory36';
+  font-size: 1.7vw;
+  bottom: 0;
+  font-family: 'mandatory36';
+  height: 20%;
+  margin: 10% 5%;
 }
 
 .small-circle {
@@ -80,8 +81,8 @@
 }
 
 .rotate {
-  -webkit-animation: rotate 20s infinite; /* Safari 4+ */
-  -moz-animation:    rotate 20s infinite; /* Fx 5+ */
-  -o-animation:      rotate 20s infinite; /* Opera 12+ */
-  animation:         rotate 20s infinite; /* IE 10+, Fx 29+ */
+  -webkit-animation: rotate 20s infinite linear; /* Safari 4+ */
+  -moz-animation:    rotate 20s infinite linear; /* Fx 5+ */
+  -o-animation:      rotate 20s infinite linear; /* Opera 12+ */
+  animation:         rotate 20s infinite linear; /* IE 10+, Fx 29+ */
 }
