@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Draggable from 'gsap/Draggable';
 import './Patephone.css';
 
 class Pathephone extends Component {
@@ -7,12 +8,19 @@ class Pathephone extends Component {
 
 	}
 
+	componentDidMount() {
+		Draggable.create("#patiphone", {
+			type:"rotation",
+			throwProps:true
+		 });
+	}
+
 	render() {
 		let myStyle = this.props.isSongPlaying ? {
 			opacity: '0.1'
 		} : null;
 		return (
-			<div className={`patiphone-container ${this.props.isSongPlaying ? 'rotate' : ''}`} style={myStyle}>
+			<div id="patiphone" className={`patiphone-container ${this.props.isSongPlaying ? 'rotate' : ''}`} style={myStyle}>
 				<div className="white-circle">
 					<div className="patiphone-artist-name">
 						Best Live
