@@ -11,7 +11,8 @@ class Pathephone extends Component {
 	componentDidMount() {
 		Draggable.create("#patiphone", {
 			type:"rotation",
-			throwProps:true
+			throwProps:true,
+			onDragEnd: this.props.onScratch.bind(this)
 		 });
 	}
 

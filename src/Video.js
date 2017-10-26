@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import YouTube from 'react-youtube';
-import Rx from 'rx';
 
-class Video extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      player: null
-    }
-    this.youtubeOptions = {
+const Video = (props) => {
+    const youtubeOptions = {
       height: '100vh',
       width: '100vw',
       playerVars: { 
@@ -24,36 +18,16 @@ class Video extends Component {
         rel: 0
       }
     };
-  }
-
-  onReady_ = (event) => {
-    this.setState({player: event.target});
-  }
-
-  fastForward = (seconds) => {
-    var currentTime = this.state.player.getCurrentTime();
-    this.state.player.seekTo(currentTime + seconds, true);
-    this.state.player.playVideo();  
-  }
-
-  rewind = (seconds) => {
-    var currentTime = this.state.player.getCurrentTime();
-    this.state.player.seekTo(currentTime - seconds, true);
-    this.state.player.playVideo();  
-  }
-
-  render() {
     return(
         <YouTube
           className="video-iframe"
           id="video-iframe"
-          videoId={this.props.currentVideo.videoId}
-          opts={this.youtubeOptions}
-          onEnd={this.props.onSongEnd}
-          onReady={this.onReady_}
+          videoId={props.currentVideo.videoId}
+          opts={youtubeOptions}
+          onEnd={props.onSongEnd}
+          onReady={props.onPlayerReady}
         />
     )
-  }
-}
+};
 
 export default Video;
