@@ -44,9 +44,9 @@ class App extends Component {
   }
 
   onUserScratch = (event) => {
-    debugger
     const currentPlaybackRate = this.state.player.getPlaybackRate();
-    this.state.player.setPlaybackRate(currentPlaybackRate + 0.1);
+    this.state.player.setPlaybackRate(currentPlaybackRate + 1);
+    console.log(this.state.player.getPlaybackRate());
   }
 
   render() {
