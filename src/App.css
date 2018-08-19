@@ -1,4 +1,4 @@
-body, html{
+body, html {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -10,7 +10,7 @@ body, html{
   z-index: 2;
 }
 
-.main-title{
+.main-title {
   color: white;
   font-size: 100px;
   font-weight: 500;
@@ -19,7 +19,7 @@ body, html{
   position: relative;
 }
 
-.years{
+.years {
   color: white;
   font-size: 30px;
   font-weight: 300;
@@ -29,7 +29,7 @@ body, html{
   position: relative;
 }
 
-.video-iframe{
+.video-iframe {
   position: fixed;
   z-index: 2;
   top: -25%;
@@ -39,7 +39,7 @@ body, html{
   pointer-events: none;
 }
 
-.video-title{
+.video-title {
   position: absolute;
   color: white;
   font-size: 3.5vw;
@@ -51,11 +51,11 @@ body, html{
   align-items: baseline;
 }
 
-.band{
+.band {
 	font-family: 'mandatory18';
 }
 
-.song{
+.song {
 	font-family: 'mandatory36';
   margin-left: 1vw;
 }

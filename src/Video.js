@@ -22,7 +22,7 @@ const Video = (props) => {
         <YouTube
           className="video-iframe"
           id="video-iframe"
-          videoId={props.currentVideo.videoId}
+          videoId={props.currentVideo.resourceId.videoId}
           opts={youtubeOptions}
           onEnd={props.onSongEnd}
           onReady={props.onPlayerReady}
