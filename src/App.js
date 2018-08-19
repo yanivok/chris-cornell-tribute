@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
-import Video from './Video.js';
-import Patephone from './Patephone.js';
-import NoiseContainer from './NoiseContainer.js';
+import Video from './components/Video/Video';
+import Patephone from './components/Patephone/Patephone';
+import NoiseContainer from './components/NoiseContainer/NoiseContainer';
+import LoginPage from './components/LoginPage/LoginPage';
 import { PlaylistPicker } from './components/PlaylistPicker/PlaylistPicker';
 import './App.css';
 import './fonts/fonts.css';
+
+export const UserContext = React.createContext();
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
+      setUser: this.setUser,
+      userCredential: null,
       player: null,
       currentVideoIndex: 0,
       currentVideo: null,
@@ -33,34 +38,8 @@ class App extends Component {
     this.setState({ userCredential: credential, user }, this.handleUserLogin);
   }
 
-  loginWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/youtube');
-    firebase.auth().signInWithPopup(provider).then(this.setUser).catch(this.catchAuthErrors);
-  }
-
   logOut = () => {
     firebase.auth().signOut();
-  }
-
-  catchAuthErrors = (error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    const credential = error.credential;
-    const errorObj = {
-      status: 1,
-      errorMsg:
-        `Error occured when trying to authenticate user: \n
-       ErrorCode: ${errorCode} \n
-       ErrorMessage: ${errorMessage} \n
-       UserEmail: ${email} \n
-       AuthCredentialType: ${credential}`,
-    }
-    console.log("Error in google auth :", errorObj);
   }
 
   handleUserLogin = () => {
@@ -120,8 +99,11 @@ class App extends Component {
 
   render() {
     if (!this.state.user) {
+      const { user, setUser, userCredential } = this.state;
       return (
-        <div className="googleLoginBtn" onClick={this.loginWithGoogle}>Connect With Google</div>
+        <UserContext.Provider value={{ user, setUser, userCredential }}>
+          <LoginPage />
+        </UserContext.Provider>
       );
     }
     if (!this.state.selectedPlaylist) {

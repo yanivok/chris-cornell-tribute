@@ -1,20 +1,25 @@
 import React from 'react';
+import { Card, Icon, Image } from 'semantic-ui-react'
+
 import './PlaylistPicker.css';
 
 export const PlaylistPicker = ({ playlists, onPlaylistPick}) => {
   const userPlaylists = playlists.map((playlist, index) => {
-    const { channelId, publishedAt, thumbnails, title, description } = playlist.snippet;
+    const { thumbnails, title, description, publishedAt } = playlist.snippet;
+    const extra = (
+      <Card.Content extra>
+        <Icon name='user' />
+        {playlist.contentDetails.itemCount} Videos
+      </Card.Content>
+    );
     return (
-      <div className="playlist" key={index} onClick={() => onPlaylistPick(playlist.id)}>
-        <img src={thumbnails.default.url} className="playlistThumbnail" />
-        <div className="playlistDataWrapper">
-          <div className="playlistDataField">ID: {playlist.id}</div>
-          <div className="playlistDataField">channelId: {channelId}</div>
-          <div className="playlistDataField">publishedAt: {publishedAt}</div>
-          <div className="playlistDataField">Title: {title}</div>
-          <div className="playlistDataField">Description: {description}</div>
-        </div>
-      </div>
+      <Card key={index} onClick={() => onPlaylistPick(playlist.id)}
+            image={thumbnails.standard.url}
+            header={title}
+            meta={`Published at ${publishedAt.toString()}`}
+            description={description}
+            extra={extra}
+      />
     )
   });
   return (

@@ -1,23 +1,22 @@
-.playlist {
+.playlistPicker {
   display: flex;
-  margin-bottom: 20px;
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 4px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1024px;
+  padding: 40px;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
-.playlistThumbnail {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin-right: 20px;
+.ui.card {
+  cursor: pointer;
+  margin: 25px 0;
 }
 
-.playlistDataWrapper {
-  display: flex;
-  flex-direction: column;
+.ui.card:first-child {
+  margin-top: 25px;
 }
 
-.playlistDataField {
-
+.ui.card:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
