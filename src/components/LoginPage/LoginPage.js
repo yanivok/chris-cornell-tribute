@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
-import { UserContext } from '../../App';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -10,11 +9,11 @@ class LoginPage extends Component {
     };
   }
 
-  loginWithGoogle = async (context) => {
+  loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/youtube');
     const persistentAuth = await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
-    firebase.auth().signInWithPopup(provider).then(context.setUser).catch(this.catchAuthErrors);
+    firebase.auth().signInWithRedirect(provider).catch(this.catchAuthErrors);
   }
 
   catchAuthErrors = (error) => {
@@ -39,11 +38,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <UserContext.Consumer>
-        {context => (
-          <div className="googleLoginBtn" onClick={() => this.loginWithGoogle(context)}>Connect With Google</div>
-        )}
-      </UserContext.Consumer>
+      <div className="googleLoginBtn" onClick={this.loginWithGoogle}>Connect With Google</div>
     );
   }
 }

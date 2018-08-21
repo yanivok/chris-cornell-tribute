@@ -8,14 +8,11 @@ import { PlaylistPicker } from './components/PlaylistPicker/PlaylistPicker';
 import './App.css';
 import './fonts/fonts.css';
 
-export const UserContext = React.createContext();
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
-      setUser: this.setUser,
       userCredential: null,
       player: null,
       currentVideoIndex: 0,
@@ -29,6 +26,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    firebase.auth().getRedirectResult().then(this.setUser);
     // firebase.auth().onAuthStateChanged((user) => {
     //   this.setState({ user }, this.handleUserLogin);
     // });
@@ -101,9 +99,7 @@ class App extends Component {
     if (!this.state.user) {
       const { user, setUser, userCredential } = this.state;
       return (
-        <UserContext.Provider value={{ user, setUser, userCredential }}>
-          <LoginPage />
-        </UserContext.Provider>
+        <LoginPage />
       );
     }
     if (!this.state.selectedPlaylist) {
@@ -112,18 +108,19 @@ class App extends Component {
       );
     }
     if (this.state.currentVideo) {
+      const {title, thumbnails} = this.state.currentVideo;
       return (
         <div className="main-container">
           <Video currentVideo={this.state.currentVideo}
                  onSongEnd={this.onSongEnd}
                  onStartSong={this.onStartSong} onPlayerReady={this.onPlayerReady}/>
           <NoiseContainer showNoise={false} />
-          <Patephone isSongPlaying={this.state.isSongPlaying} onScratch={this.onUserScratch}/>
+          <Patephone isSongPlaying={this.state.isSongPlaying} onScratch={this.onUserScratch} backgroundImage={thumbnails.standard.url}/>
           <div className="video-title">
-            <div className="band">{this.state.currentVideo.band}</div>
-            <div className="song">{this.state.currentVideo.title}</div>
+            <div className="song">{title}</div>
+            {/* <div className="song">{this.state.currentVideo.title}</div> */}
           </div>
-          <div className="logOutBtn" onClick={this.logOut}>Sign Out</div>
+          {/* <div className="logOutBtn" onClick={this.logOut}>Sign Out</div> */}
         </div>
       );
     }

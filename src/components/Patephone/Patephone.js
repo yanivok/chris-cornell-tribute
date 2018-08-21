@@ -20,9 +20,13 @@ class Patephone extends Component {
 		let myStyle = this.props.isSongPlaying ? {
 			opacity: '0.1'
 		} : null;
+		const backgroundStyle = {
+			background: `url(${this.props.backgroundImage})`,
+			backgroundSize: 'cover',
+		}
 		return (
 			<div id="patiphone" className={`patiphone-container ${this.props.isSongPlaying ? 'rotate' : ''}`} style={myStyle}>
-				<div className="white-circle">
+				<div className="white-circle" style={backgroundStyle}>
 					<div className="patiphone-artist-name">
 						Best Live
 					</div>
