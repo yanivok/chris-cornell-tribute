@@ -5,6 +5,7 @@ import Patephone from './components/Patephone/Patephone';
 import NoiseContainer from './components/NoiseContainer/NoiseContainer';
 import LoginPage from './components/LoginPage/LoginPage';
 import { PlaylistPicker } from './components/PlaylistPicker/PlaylistPicker';
+import { Loader } from 'semantic-ui-react'; 
 import './App.css';
 import './fonts/fonts.css';
 
@@ -27,12 +28,16 @@ class App extends Component {
 
   componentDidMount() {
     firebase.auth().getRedirectResult().then(this.setUser);
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   this.setState({ user }, this.handleUserLogin);
-    // });
+    firebase.auth().onAuthStateChanged((user) => {
+      const credential = JSON.parse(sessionStorage.getItem('userCredential'));
+      this.setState({ userCredential: credential, user }, this.handleUserLogin);
+    });
   }
 
   setUser = ({credential, user}) => {
+    if (credential) {
+      sessionStorage.setItem('userCredential', JSON.stringify(credential));
+    }
     this.setState({ userCredential: credential, user }, this.handleUserLogin);
   }
 
@@ -41,7 +46,7 @@ class App extends Component {
   }
 
   handleUserLogin = () => {
-    if (this.state.user) {
+    if (this.state.user && this.state.userCredential) {
       this.fetchUserPlaylists();
     }
   }
@@ -49,6 +54,10 @@ class App extends Component {
   fetchUserPlaylists = async () => {
     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?key=${this.API_KEY}&access_token=${this.state.userCredential.accessToken}&mine=true&part=snippet,contentDetails`)
     const data = await response.json();
+    if (data.error) {
+      sessionStorage.removeItem('userCredential');
+      return;
+    }
     this.setUserPlaylists(data);
   }
 
@@ -78,15 +87,30 @@ class App extends Component {
     );
   }
 
-  onPlayerReady = (event) => {
-    this.setState({player: event.target});
+  onNextSong = () => {
+    if (this.state.currentVideoIndex === this.state.videos.length - 1){ 
+      return;
+    }
+    this.setState({currentVideoIndex: this.state.currentVideoIndex + 1,  isSongPlaying: false},
+      () => {
+        this.onStartSong();
+      }
+    );
   }
 
-  onUserScratch = (event) => {
-    // const currentPlaybackRate = this.state.player.getPlaybackRate();
-    // this.state.player.setPlaybackRate(currentPlaybackRate + 1);
-    // console.log(this.state.player.getPlaybackRate());
-    console.log(event);
+  onPreviousSong = () => {
+    if (this.state.currentVideoIndex === 0) {
+      return;
+    }
+    this.setState({ currentVideoIndex: this.state.currentVideoIndex - 1, isSongPlaying: false },
+      () => {
+        this.onStartSong();
+      }
+    );
+  }
+
+  onPlayerReady = (event) => {
+    this.setState({player: event.target});
   }
 
   onPlaylistPick = async (playlistId) => {
@@ -96,13 +120,12 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.user) {
-      const { user, setUser, userCredential } = this.state;
+    if (!this.state.user || !this.state.userCredential) {
       return (
         <LoginPage />
       );
     }
-    if (!this.state.selectedPlaylist) {
+    if (!this.state.selectedPlaylist && this.state.userPlaylists) {
       return (
         <PlaylistPicker playlists={this.state.userPlaylists} onPlaylistPick={this.onPlaylistPick}/>
       );
@@ -115,16 +138,18 @@ class App extends Component {
                  onSongEnd={this.onSongEnd}
                  onStartSong={this.onStartSong} onPlayerReady={this.onPlayerReady}/>
           <NoiseContainer showNoise={false} />
-          <Patephone isSongPlaying={this.state.isSongPlaying} onScratch={this.onUserScratch} backgroundImage={thumbnails.standard.url}/>
+          <Patephone isSongPlaying={this.state.isSongPlaying}
+                     onScratchForward={this.onNextSong}
+                     onScratchBackwards={this.onPreviousSong}
+                     backgroundImage={thumbnails.standard.url}/>
           <div className="video-title">
             <div className="song">{title}</div>
-            {/* <div className="song">{this.state.currentVideo.title}</div> */}
           </div>
           {/* <div className="logOutBtn" onClick={this.logOut}>Sign Out</div> */}
         </div>
       );
     }
-    return null;
+    return <Loader inverted>Loading</Loader>;
   }
 }
 

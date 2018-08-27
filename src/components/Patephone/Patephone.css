@@ -1,4 +1,4 @@
-.patiphone-container {
+.patephone-container {
   position: relative;
   width: 50%;
   border-radius: 50%;
@@ -16,13 +16,13 @@
   transition: opacity 1s;
 }
 
-.patiphone-container:after {
+.patephone-container:after {
   content: "";
   display: block;
   padding-bottom: 100%;
 }
 
-.patiphone-container:hover{
+.patephone-container:hover{
   opacity: 0.9 !important;
 }
 
@@ -36,7 +36,7 @@
   text-align: center;
 }
 
-.patiphone-artist-name {
+.patephone-artist-name {
   font-family: 'mandatory18';
   position: absolute;
   width: 90%;
@@ -47,7 +47,7 @@
   text-transform: uppercase;
 }
 
-.patiphone-artist-years {
+.patephone-artist-years {
   position: absolute;
   width: 90%;
   color: red;
@@ -70,19 +70,26 @@
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes rotate {
-    from {transform: rotate(0deg);}
-    to   {transform: rotate(360deg);}
+  from {transform: rotate(0deg);}
+  to   {transform: rotate(360deg);}
 } 
 
 /* Standard syntax */ 
 @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to   {transform: rotate(360deg);}
+  from {transform: rotate(0deg);}
+  to   {transform: rotate(360deg);}
 }
 
-.rotate {
-  -webkit-animation: rotate 20s infinite linear; /* Safari 4+ */
-  -moz-animation:    rotate 20s infinite linear; /* Fx 5+ */
-  -o-animation:      rotate 20s infinite linear; /* Opera 12+ */
-  animation:         rotate 20s infinite linear; /* IE 10+, Fx 29+ */
+/* .rotate {
+  -webkit-animation: rotate 20s infinite linear;
+  -moz-animation:    rotate 20s infinite linear;
+  -o-animation:      rotate 20s infinite linear;
+  animation:         rotate 20s infinite linear;
 }
+
+.rotate:active {
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -o-animation-play-state: paused;
+  animation-play-state: paused;
+} */
