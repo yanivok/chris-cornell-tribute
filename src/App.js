@@ -4,6 +4,7 @@ import Video from './components/Video/Video';
 import Patephone from './components/Patephone/Patephone';
 import NoiseContainer from './components/NoiseContainer/NoiseContainer';
 import LoginPage from './components/LoginPage/LoginPage';
+import ajaxHelper from './helpers/ajaxHelper';
 import { PlaylistPicker } from './components/PlaylistPicker/PlaylistPicker';
 import { Loader } from 'semantic-ui-react'; 
 import './App.css';
@@ -23,21 +24,17 @@ class App extends Component {
       selectedPlaylist: null,
       videos: [],
     }
-    this.API_KEY = 'AIzaSyAkoQP-RNQ78mpwcwQJHcQYXFNu_1hyIGQ';
+    this.ajaxHelper;
   }
 
   componentDidMount() {
     firebase.auth().getRedirectResult().then(this.setUser);
     firebase.auth().onAuthStateChanged((user) => {
-      const credential = JSON.parse(sessionStorage.getItem('userCredential'));
-      this.setState({ userCredential: credential, user }, this.handleUserLogin);
+      this.setState({ user }, this.handleUserLogin);
     });
   }
 
   setUser = ({credential, user}) => {
-    if (credential) {
-      sessionStorage.setItem('userCredential', JSON.stringify(credential));
-    }
     this.setState({ userCredential: credential, user }, this.handleUserLogin);
   }
 
@@ -47,17 +44,18 @@ class App extends Component {
 
   handleUserLogin = () => {
     if (this.state.user && this.state.userCredential) {
+      this.ajaxHelper = new ajaxHelper(this.state.userCredential.accessToken);
       this.fetchUserPlaylists();
     }
   }
 
   fetchUserPlaylists = async () => {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?key=${this.API_KEY}&access_token=${this.state.userCredential.accessToken}&mine=true&part=snippet,contentDetails`)
+    const params = {
+      mine: true,
+      part: 'snippet, contentDetails',
+    };
+    const response = await this.ajaxHelper.get('https://www.googleapis.com/youtube/v3/playlists', params);
     const data = await response.json();
-    if (data.error) {
-      sessionStorage.removeItem('userCredential');
-      return;
-    }
     this.setUserPlaylists(data);
   }
 
@@ -80,41 +78,37 @@ class App extends Component {
       this.setState({ isSongPlaying: false });
       return;
     }
-    this.setState({currentVideoIndex: this.state.currentVideoIndex + 1,  isSongPlaying: false},
-      () => {
-        this.onStartSong();
-      }
-    );
+    this.setCurrentSongByIndex(this.state.currentVideoIndex + 1);
   }
 
   onNextSong = () => {
     if (this.state.currentVideoIndex === this.state.videos.length - 1){ 
       return;
     }
-    this.setState({currentVideoIndex: this.state.currentVideoIndex + 1,  isSongPlaying: false},
-      () => {
-        this.onStartSong();
-      }
-    );
+    this.setCurrentSongByIndex(this.state.currentVideoIndex + 1);
   }
 
   onPreviousSong = () => {
     if (this.state.currentVideoIndex === 0) {
       return;
     }
-    this.setState({ currentVideoIndex: this.state.currentVideoIndex - 1, isSongPlaying: false },
-      () => {
-        this.onStartSong();
-      }
-    );
+    this.setCurrentSongByIndex(this.state.currentVideoIndex - 1);
   }
+
+  setCurrentSongByIndex = (index) => {
+    this.setState({ currentVideoIndex: index, isSongPlaying: false }, this.onStartSong);
+  } 
 
   onPlayerReady = (event) => {
     this.setState({player: event.target});
   }
 
   onPlaylistPick = async (playlistId) => {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?key=${this.API_KEY}&access_token=${this.state.userCredential.accessToken}&part=snippet,contentDetails&playlistId=${playlistId}`);
+    const params = {
+      playlistId,
+      part: 'snippet, contentDetails',
+    };
+    const response = await this.ajaxHelper.get('https://www.googleapis.com/youtube/v3/playlistItems', params);
     const data = await response.json();
     this.setState({ selectedPlaylist: playlistId }, () => this.setVideos(data));
   }
@@ -143,9 +137,8 @@ class App extends Component {
                      onScratchBackwards={this.onPreviousSong}
                      backgroundImage={thumbnails.standard.url}/>
           <div className="video-title">
-            <div className="song">{title}</div>
+            {title}
           </div>
-          {/* <div className="logOutBtn" onClick={this.logOut}>Sign Out</div> */}
         </div>
       );
     }

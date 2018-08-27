@@ -19,16 +19,6 @@ body, html {
   position: relative;
 }
 
-.years {
-  color: white;
-  font-size: 30px;
-  font-weight: 300;
-  font-style: italic;
-  margin: 0px 20px;
-  z-index: 4;
-  position: relative;
-}
-
 .video-iframe {
   position: fixed;
   z-index: 2;
@@ -42,20 +32,14 @@ body, html {
 .video-title {
   position: absolute;
   color: white;
-  font-size: 3.5vw;
-  bottom: 0px;
-  left: 0px;
+  font-size: 3vw;
+  bottom: 2vh;
+  left: 1vw;
   padding: 0px 20px;
   z-index: 4;
   display: flex;
   align-items: baseline;
+  font-family: 'mandatory36';
 }
 
-.band {
-	font-family: 'mandatory18';
-}
 
-.song {
-	font-family: 'mandatory36';
-  margin-left: 1vw;
-}
